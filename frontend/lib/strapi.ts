@@ -7,8 +7,12 @@ import type {
   Social,
 } from "@/types/resume";
 
+// STRAPI_API_URL is used server-side for API calls (allows Docker internal networking).
+// Falls back to NEXT_PUBLIC_STRAPI_URL which works for plain local (non-Docker) dev.
 const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
+  process.env.STRAPI_API_URL ??
+  process.env.NEXT_PUBLIC_STRAPI_URL ??
+  "http://localhost:1337";
 
 async function strapiGet<T>(path: string): Promise<T | null> {
   const url = `${STRAPI_URL}/api${path}`;

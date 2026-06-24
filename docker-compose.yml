@@ -1,0 +1,37 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "1337:1337"
+    volumes:
+      - strapi-db:/app/.tmp
+      - strapi-uploads:/app/public/uploads
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1337
+      NODE_ENV: development
+      APP_KEYS: "localDevKey1,localDevKey2,localDevKey3,localDevKey4"
+      API_TOKEN_SALT: localDevApiTokenSalt
+      ADMIN_JWT_SECRET: localDevAdminJwtSecret
+      TRANSFER_TOKEN_SALT: localDevTransferTokenSalt
+      JWT_SECRET: localDevJwtSecret
+      ENCRYPTION_KEY: localDevEncryptionKey
+      DATABASE_CLIENT: sqlite
+      DATABASE_FILENAME: .tmp/data.db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # Used by Next.js server to reach Strapi inside Docker network
+      STRAPI_API_URL: http://backend:1337
+      # Used to build public-facing media URLs (browser-accessible)
+      NEXT_PUBLIC_STRAPI_URL: http://localhost:1337
+      NEXT_TELEMETRY_DISABLED: 1
+    depends_on:
+      - backend
+
+volumes:
+  strapi-db:
+  strapi-uploads:
