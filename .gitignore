@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Strapi
+backend/.tmp/
+backend/.cache/
+backend/build/
+backend/dist/
+backend/.env
+backend/exports/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
