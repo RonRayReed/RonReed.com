@@ -1,4 +1,10 @@
-import { AbsoluteFill, interpolate, spring, useCurrentFrame } from "remotion";
+import {
+  AbsoluteFill,
+  interpolate,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 import type { Scene } from "../data/world-bank-ukraine";
 
 const FADE_FRAMES = 12;
@@ -11,7 +17,11 @@ const accentByKind: Record<Scene["kind"], string> = {
 
 export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
   const frame = useCurrentFrame();
-  const fps = 30;
+  const { fps, width, height } = useVideoConfig();
+
+  // Scale typography off the shorter axis so the same scene reads
+  // consistently whether the composition is vertical or 16:9.
+  const unit = Math.min(width, height);
 
   const enter = spring({ frame, fps, config: { damping: 200 } });
   const translateY = interpolate(enter, [0, 1], [30, 0]);
@@ -29,6 +39,7 @@ export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
   );
 
   const isHook = scene.kind === "hook";
+  const isOutro = scene.kind === "outro";
   const accent = accentByKind[scene.kind];
 
   return (
@@ -37,7 +48,7 @@ export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
         backgroundColor: "#0b0b0f",
         justifyContent: "center",
         alignItems: "center",
-        padding: 96,
+        padding: unit * 0.09,
       }}
     >
       <div
@@ -45,22 +56,22 @@ export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           opacity,
           transform: `translateY(${translateY}px)`,
           textAlign: "center",
-          maxWidth: 880,
+          maxWidth: width * 0.82,
         }}
       >
         <div
           style={{
-            width: 64,
-            height: 6,
-            borderRadius: 3,
+            width: unit * 0.06,
+            height: unit * 0.006,
+            borderRadius: unit * 0.003,
             backgroundColor: accent,
-            margin: "0 auto 40px",
+            margin: `0 auto ${unit * 0.037}px`,
           }}
         />
         <h1
           style={{
             fontFamily: "sans-serif",
-            fontSize: isHook ? 84 : 68,
+            fontSize: isHook ? unit * 0.08 : unit * 0.065,
             fontWeight: 800,
             color: "white",
             lineHeight: 1.15,
@@ -73,14 +84,32 @@ export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
           <p
             style={{
               fontFamily: "sans-serif",
-              fontSize: 38,
+              fontSize: unit * 0.035,
               color: "#a0a0b0",
-              marginTop: 28,
+              marginTop: unit * 0.026,
               lineHeight: 1.4,
             }}
           >
             {scene.subtext}
           </p>
+        )}
+        {isOutro && scene.cta && (
+          <div
+            style={{
+              display: "inline-block",
+              marginTop: unit * 0.045,
+              padding: `${unit * 0.018}px ${unit * 0.036}px`,
+              border: `2px solid ${accent}`,
+              borderRadius: unit * 0.01,
+              fontFamily: "sans-serif",
+              fontSize: unit * 0.04,
+              fontWeight: 700,
+              color: accent,
+              letterSpacing: 0.5,
+            }}
+          >
+            {scene.cta}
+          </div>
         )}
       </div>
     </AbsoluteFill>

@@ -15,6 +15,15 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
         defaultProps={{ scenes }}
       />
+      <Composition
+        id="WorldBankUkraineYouTube"
+        component={ArticleVideo}
+        durationInFrames={totalDurationInFrames}
+        fps={fps}
+        width={1920}
+        height={1080}
+        defaultProps={{ scenes }}
+      />
     </>
   );
 };
