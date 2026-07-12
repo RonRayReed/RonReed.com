@@ -22,7 +22,7 @@ export const RemotionRoot: React.FC = () => {
         fps={fps}
         width={1920}
         height={1080}
-        defaultProps={{ scenes }}
+        defaultProps={{ scenes, audioSrc: "audio/business-intel-theme.wav" }}
       />
     </>
   );
