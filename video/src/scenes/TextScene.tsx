@@ -6,7 +6,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { Scene } from "../data/world-bank-ukraine";
-import { BigLogo } from "./BigLogo";
+import { BiLogo } from "./BiLogo";
 
 const FADE_FRAMES = 12;
 
@@ -62,7 +62,7 @@ export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
         padding: unit * 0.09,
       }}
     >
-      {isOutro && <BigLogo unit={unit} />}
+      {isOutro && <BiLogo unit={unit} variant="dark" />}
       <div
         style={{
           opacity,
