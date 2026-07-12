@@ -58,7 +58,6 @@ export const scenes: Scene[] = [
     id: "outro",
     kind: "outro",
     headline: "Business Intel Group",
-    subtext: "World Bank & Ukraine reconstruction coverage",
     cta: "www.BusinessIntel.Group",
     durationInFrames: 150,
   },

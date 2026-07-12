@@ -23,7 +23,7 @@ const BIG = {
 const accentByKind: Record<Scene["kind"], string> = {
   hook: "#4ea8ff",
   point: "#4ea8ff",
-  outro: BIG.mainLogoBlue,
+  outro: "#ffffff",
 };
 
 export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
@@ -56,13 +56,13 @@ export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: isOutro ? BIG.webLightBlue : "#0b0b0f",
+        backgroundColor: isOutro ? "#000000" : "#0b0b0f",
         justifyContent: "center",
         alignItems: "center",
         padding: unit * 0.09,
       }}
     >
-      {isOutro && <BiLogo unit={unit} variant="dark" />}
+      {isOutro && <BiLogo unit={unit} variant="light" />}
       <div
         style={{
           opacity,
@@ -85,7 +85,7 @@ export const TextScene: React.FC<{ scene: Scene }> = ({ scene }) => {
             fontFamily: isOutro ? BIG.fontFamily : "sans-serif",
             fontSize: isHook ? unit * 0.08 : unit * 0.065,
             fontWeight: 800,
-            color: isOutro ? BIG.mainLogoBlue : "white",
+            color: "white",
             lineHeight: 1.15,
             margin: 0,
           }}
